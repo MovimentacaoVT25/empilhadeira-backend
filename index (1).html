@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Operador - Empilhadeira</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚛</text></svg>">
+</head>
+<body>
+    <!-- Notificações -->
+    <div id="notifications"></div>
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>Carregando dados...</p>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🚛</span>
+                <div class="logo-text">
+                    <h1>Painel do Operador</h1>
+                    <p>Controle de Solicitações de Empilhadeira</p>
+                </div>
+            </div>
+            
+            <!-- Contadores de Status -->
+            <div class="status-counters">
+                <div class="counter pending">
+                    <span class="counter-number" id="pendingCount">0</span>
+                    <span class="counter-label">Pendentes</span>
+                </div>
+                <div class="counter in-progress">
+                    <span class="counter-number" id="inProgressCount">0</span>
+                    <span class="counter-label">Em Andamento</span>
+                </div>
+                <div class="counter completed">
+                    <span class="counter-number" id="completedCount">0</span>
+                    <span class="counter-label">Concluídos</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Área de Filtros -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label for="statusFilter">Filtrar por Status:</label>
+                <select id="statusFilter">
+                    <option value="todos">Todos</option>
+                    <option value="pendente">Pendentes</option>
+                    <option value="em-andamento">Em Andamento</option>
+                    <option value="concluido">Concluídos</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="areaFilter">Área:</label>
+                <select id="areaFilter">
+                    <option value="todos">Todas as Áreas</option>
+                    <option value="Logística">Logística</option>
+                    <option value="Injeção de Alumínio">Injeção de Alumínio</option>
+                    <option value="Injeção PPS">Injeção PPS</option>
+                    <option value="Montagem Manual">Montagem Manual</option>
+                    <option value="Montagem Automatizada">Montagem Automatizada</option>
+                    <option value="Manutenção INJ">Manutenção INJ</option>
+                    <option value="Torno">Torno</option>
+                    <option value="Usinagem">Usinagem</option>
+                    <option value="Qualidade">Qualidade</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="dateFilter">Data:</label>
+                <input type="date" id="dateFilter">
+            </div>
+            
+            <button id="refreshBtn" class="refresh-btn">🔄 Atualizar</button>
+        </div>
+    </section>
+
+    <!-- Lista de Solicitações -->
+    <main class="main-content">
+        <div id="requestsList" class="requests-list">
+            <!-- Cards de solicitações serão inseridos aqui via JavaScript -->
+        </div>
+        
+        <!-- Estado vazio -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-icon">📋</div>
+            <h3>Nenhuma solicitação encontrada</h3>
+            <p>Ajuste os filtros ou aguarde novas solicitações</p>
+        </div>
+    </main>
+
+    <!-- Modal para Observações -->
+    <div id="observationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Adicionar Observação</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="observationText" placeholder="Adicione uma observação sobre o atendimento (opcional)..." rows="4"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-primary" id="confirmActionBtn" onclick="confirmarAcaoModal()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
