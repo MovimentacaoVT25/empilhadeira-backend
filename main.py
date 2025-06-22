@@ -52,7 +52,6 @@ DEMO_DATA = [
     }
 ]
 
-# Armazenamento em memória para status (em produção seria banco de dados)
 status_storage = {}
 
 @app.route('/api/sheets/health', methods=['GET'])
@@ -83,7 +82,6 @@ def update_status():
         horario_inicio = data.get('horarioInicio')
         horario_conclusao = data.get('horarioConclusao')
         
-        # Salva no armazenamento em memória
         status_storage[request_id] = {
             'status': status,
             'observacaoOperador': observacao,
@@ -91,7 +89,6 @@ def update_status():
             'horarioConclusao': horario_conclusao
         }
         
-        # Atualiza também os dados demo
         for item in DEMO_DATA:
             if item['id'] == request_id:
                 item['status'] = status
@@ -114,7 +111,7 @@ def home():
         "status": "funcionando",
         "endpoints": [
             "/api/sheets/health",
-            "/api/sheets/read-data",
+            "/api/sheets/read-data", 
             "/api/sheets/read-status",
             "/api/sheets/update-status"
         ]
@@ -123,4 +120,3 @@ def home():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
-Add secure main.py
